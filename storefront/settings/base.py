@@ -26,6 +26,9 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 INSTALLED_APPS = [
     "home",
     "search",
+    "products",
+    "algoliasearch_django",
+
     "wagtail.contrib.forms",
     "wagtail.contrib.redirects",
     "wagtail.embeds",
@@ -46,6 +49,12 @@ INSTALLED_APPS = [
     "django.contrib.messages",
     "django.contrib.staticfiles",
 ]
+
+ALGOLIA = {
+  'APPLICATION_ID': '8PRNMGZU58',
+  'API_KEY': '7930776b9241e630e36e5388b3994dfc',
+  'INDEX_PREFIX': 'storefront',
+}
 
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
