@@ -1,0 +1,99 @@
+{% load static wagtailcore_tags %}
+
+{% block extra_css %}
+    <style>
+        .search-container {
+            padding: 20px;
+            background-color: #f0f0f0;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        .search-container h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .search-container form {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        .search-container input[type="text"] {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ddd; 
+            border-radius: 8px;
+        }
+        .search-container input[type="submit"] {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+        }
+        .search-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+        .search-results {
+            margin-top: 20px;
+        }
+        .search-result-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .search-result-card h4 {
+            margin: 0 0 10px;
+            font-size: 1.5em;
+        }
+        .search-result-card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .search-result-card a:hover {
+            text-decoration: underline;
+        }
+        .search-result-details {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .search-result-description {
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+        .pagination {
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .pagination a {
+            color: #007bff;
+            text-decoration: none;
+            margin: 0 5px;
+        }
+        .pagination a:hover {
+            text-decoration: underline;
+        }
+        .pagination p {
+            margin: 0;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="search-container">
+        <h1>Search</h1>
+
+        <form action="{% url 'search' %}" method="get">
+            <input type="text" name="query"{% if search_query %} value="{{ search_query }}"{% endif %} placeholder="Search...">
+            <input type="submit" value="Search" class="button">
+        </form>
+
+    </div>
+{% endblock %}

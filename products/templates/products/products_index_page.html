@@ -1,0 +1,66 @@
+{% extends "base.html" %}
+
+{% load wagtailcore_tags %}
+
+{% block extra_css %}
+    <style>
+        .intro {
+            background-color: #f0f0f0;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+        }
+        h1 {
+            color: #333;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .post-card {
+            background-color: #ffffff;
+            border: 1px solid #ddd;
+            border-radius: 12px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .post-card h2 {
+            font-size: 1.5em;
+            margin: 0 0 10px;
+        }
+        .post-card a {
+            color: #007bff;
+            text-decoration: none;
+        }
+        .post-card a:hover {
+            text-decoration: underline;
+        }
+        .post-details {
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #666;
+        }
+        .post-description {
+            margin-top: 10px;
+            font-size: 1em;
+            line-height: 1.5;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+    {% for post in page.get_children %}
+        <div class="post-card">
+            <h2><a href="{% pageurl post %}">{{ post.title }}</a></h2>
+            <div class="post-details">
+                <p><strong>Views:</strong> {{ post.specific.views }}</p>
+                <p><strong>Created:</strong> {{ post.specific.creation_date|date:"F j, Y" }}</p>
+                <p><strong>Price:</strong> {{ post.specific.price }}</p>
+            </div>
+            <div class="post-description">
+                {{ post.specific.description|richtext }}
+            </div>
+        </div>
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% load static wagtailcore_tags %}
+
+{% block body_class %}template-productdetail{% endblock %}
+
+{% block extra_css %}
+    <style>
+        .product-detail {
+            border: 1px solid #ccc;
+            padding: 20px;
+            margin: 20px auto;
+            max-width: 800px;
+            background-color: #f9f9f9;
+            border-radius: 12px; /* Added for rounded corners */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Added for shadow */
+        }
+        .product-detail img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px; /* Added for rounded corners */
+        }
+        .product-detail h1 {
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .product-detail-meta {
+            font-size: 1.2em;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .product-detail-description {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .product-detail-price {
+            font-size: 1.5em;
+            color: #e94e77;
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .product-detail-rating {
+            margin-top: 10px;
+            margin-bottom: 10px;
+        }
+        .product-detail-views {
+            margin-top: 10px;
+            font-style: italic;
+            margin-bottom: 20px;
+        }
+        .return-to-products,
+        .add-to-cart {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-top: 10px;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 8px;
+            background-color: #007bff;
+            border: none;
+            cursor: pointer;
+            font-size: 1em;
+        }
+        .return-to-products:hover,
+        .add-to-cart:hover {
+            background-color: #0056b3;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <div class="product-detail">
+        <h1>{{ page.title }}</h1>
+        <p class="product-detail-meta">{{ page.name }}</p>
+        <div class="product-detail-description">{{ page.description|richtext }}</div>
+        <div class="product-detail-price">{{ page.price }}</div>
+        <div class="product-detail-rating">{{ page.rating }}</div>
+        <div class="product-detail-views">{{ page.views }}</div>
+
+        {{ page.body|richtext }}
+
+        <p>
+            <a class="return-to-products" href="{{ page.get_parent.url }}">Return to products</a>
+            <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+        </p>
+    </div>
+
+    <script>
+        function addToCart() {
+            // Add your JavaScript code to handle adding the product to the cart
+            alert('Product added to cart!');
+        }
+    </script>
+{% endblock %}
