@@ -56,6 +56,13 @@ ALGOLIA = {
   'INDEX_PREFIX': 'storefront',
 }
 
+# ALGOLIA = {
+#     'APPLICATION_ID': 'UOEGA3YUXR',
+#     'API_KEY': '597db0fa7d78655af99a876b2977728d',
+#     'INDEX_PREFIX': 'storefront',
+# }
+
+
 MIDDLEWARE = [
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",

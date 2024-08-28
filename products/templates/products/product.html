@@ -68,14 +68,14 @@
     </style>
 {% endblock %}
 
-{% block content %}
+{% block content %} 
     <div class="product-detail">
         <h1>{{ page.title }}</h1>
         <p class="product-detail-meta">{{ page.name }}</p>
         <div class="product-detail-description">{{ page.description|richtext }}</div>
-        <div class="product-detail-price">{{ page.price }}</div>
-        <div class="product-detail-rating">{{ page.rating }}</div>
-        <div class="product-detail-views">{{ page.views }}</div>
+        <div class="product-detail-price"><strong>Price:</strong> {{ page.price }}</div>
+        <div class="product-detail-rating"><strong>Rating:</strong> {{ page.rating }}</div>
+        <div class="product-detail-views"><strong>Views: </strong> {{ page.views }}</div>
 
         {{ page.body|richtext }}
 

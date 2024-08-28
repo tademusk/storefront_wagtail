@@ -97,51 +97,42 @@
         </form>         
         </div>
 
-
         {% if search_results %}
             <div class="search-results">
                 {% for result in search_results %}
                     <div class="search-result-card">
-                        <h4><a href="{% pageurl result %}">{{ result.title }}</a></h4>
+                        <h4> <a href="/product/{{ result.slug }}/">{{ result.title }}</a></h4>
                         <div class="search-result-details">
-                            {% if result.specific.price %}
-                                <p><strong>Price:</strong> {{ result.specific.price }}</p>
+                            {% if result.price %}
+                                <p><strong>Price:</strong> {{ result.price }}</p>
                             {% endif %}
-                            {% if result.specific.views %}
-                                <p><strong>Views:</strong> {{ result.specific.views }}</p>
+                            {% if result.views %}
+                                <p><strong>Views:</strong> {{ result.views }}</p>
                             {% endif %}
-                            {% if result.specific.creation_date %}
-                                <p><strong>Created:</strong> {{ result.specific.creation_date|date:"F j, Y" }}</p>
+                            {% if result.creation_date %}
+                                <p><strong>Created:</strong> {{ result.creation_date|date:"F j, Y" }}</p>
                             {% endif %}
-                            {% if result.specific.rating %}
-                                <p><strong>Rating:</strong> {{ result.specific.rating }}</p>
+                            {% if result.rating %}
+                                <p><strong>Rating:</strong> {{ result.rating }}</p>
                             {% endif %}
                         </div>
                         <div class="search-result-description">
-                            {% if result.specific.description %}
-                                {{ result.specific.description|richtext }}
+                            {% if result.description %}
+                                {{ result.description|richtext }}
                             {% endif %}
                         </div>
                     </div>
                 {% endfor %}
             </div>
 
-            {% if search_results.paginator.num_pages > 1 %}
-                <div class="pagination">
-                    <p>Page {{ search_results.number }} of {{ search_results.paginator.num_pages }}, showing {{ search_results|length }} result{{ search_results|pluralize }} out of {{ search_results.paginator.count }}</p>
-                    
-                    {% if search_results.has_previous %}
-                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.previous_page_number }}">Previous</a>
-                    {% endif %}
-
-                    {% if search_results.has_next %}
-                        <a href="{% url 'search' %}?query={{ search_query|urlencode }}&amp;page={{ search_results.next_page_number }}">Next</a>
-                    {% endif %}
-                </div>
-            {% endif %}
-
         {% elif search_query %}
             <p>No results found</p>
         {% endif %}
     </div>
+{% endblock %}
+{% block extra_js %}
+<script src="//cdn.jsdelivr.net/hogan.js/3.0.2/hogan.min.js"></script>
+<script src="https://cdn.jsdelivr.net/algoliasearch/3/algoliasearchLite.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/algoliasearch-helper@3.6.2/dist/algoliasearch.helper.min.js"></script>
+
 {% endblock %}

@@ -1,40 +1,25 @@
-from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 from django.template.response import TemplateResponse
-
+from algoliasearch_django import raw_search
 from wagtail.models import Page
-
-# To enable logging of search queries for use with the "Promoted search results" module
-# <https://docs.wagtail.org/en/stable/reference/contrib/searchpromotions.html>
-# uncomment the following line and the lines indicated in the search function
-# (after adding wagtail.contrib.search_promotions to INSTALLED_APPS):
-
-# from wagtail.contrib.search_promotions.models import Query
-
+from products import models
+from django.utils.text import slugify
 
 def search(request):
     search_query = request.GET.get("query", None)
-    page = request.GET.get("page", 1)
+    params = {"hitsPerPage": 100}
 
-    # Search
     if search_query:
-        search_results = Page.objects.live().search(search_query)
+        response = raw_search(models.Product, search_query, params)
+        search_results = response.get("hits", [])
+        total_hits = response.get("nbHits", 0)
 
-        # To log this query for use with the "Promoted search results" module:
-
-        # query = Query.get(search_query)
-        # query.add_hit()
+        # Generate slugs for each search result
+        for result in search_results:
+            result['slug'] = slugify(result['title'])
 
     else:
-        search_results = Page.objects.none()
-
-    # Pagination
-    paginator = Paginator(search_results, 10) 
-    try:
-        search_results = paginator.page(page)
-    except PageNotAnInteger:
-        search_results = paginator.page(1)
-    except EmptyPage:
-        search_results = paginator.page(paginator.num_pages)
+        search_results = []
+        total_hits = 0
 
     return TemplateResponse(
         request,
@@ -42,5 +27,6 @@ def search(request):
         {
             "search_query": search_query,
             "search_results": search_results,
+            "total_hits": total_hits,
         },
     )

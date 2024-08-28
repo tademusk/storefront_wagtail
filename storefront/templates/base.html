@@ -30,7 +30,12 @@
         {% block extra_css %}
         {# Override this in templates to add extra stylesheets #}
         {% endblock %}
-    </head>
+        
+        <!-- Include Algolia's InstantSearch.js library -->
+       <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.css@7.4.5/themes/satellite-min.css" />
+       <script src="https://cdn.jsdelivr.net/npm/instantsearch.js@4"></script>
+
+     </head>
 
     <body class="{% block body_class %}{% endblock %}">
         {% wagtailuserbar %}
